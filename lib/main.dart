@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CartModel extends ChangeNotifier {
-  List items = [];
-}
-
 void main() {
   runApp(
     // membungkus aplikasi dengan ChangeNotifierProvider
@@ -37,6 +33,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// 1. state model (business logic)
+class CartModel extends ChangeNotifier {
+  final List<String> _items = [];
+
+  List<String> get items => _items;
+
+  void add(String itemName) {
+    _items.add(itemName);
+    // perhatikan code ini memberitahu UI untuk update !
+    notifyListeners();
+  }
+
+  void removeAll() {
+    _items.clear();
+    notifyListeners();
+  }
+}
 // class MyHomePage extends StatefulWidget {
 //   const MyHomePage({super.key, required this.title});
 
